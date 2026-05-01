@@ -1170,7 +1170,10 @@ function renderizar() {
     // Link externo
 
     // KPIs
-    document.getElementById("kpi-abertas").textContent    = d.vagas.abertas;
+    const cadeirasAbertas = (d.vagasDetalhes && d.vagasDetalhes.abertas && d.vagasDetalhes.abertas.length > 0)
+        ? d.vagasDetalhes.abertas.reduce((s, v) => s + (v.cadeiras || 1), 0)
+        : d.vagas.abertas;
+    document.getElementById("kpi-abertas").textContent    = cadeirasAbertas;
     document.getElementById("kpi-fechadas").textContent   = d.vagas.fechadas;
     document.getElementById("kpi-congeladas").textContent = d.vagas.congeladas;
     document.getElementById("kpi-canceladas").textContent = d.vagas.canceladas;
@@ -1630,7 +1633,10 @@ function abrirModal(tipo) {
     }
     const cols  = tipo === "abertas" ? 5 : 4;
     const empty = lista.length === 0 ? `<tr><td colspan="${cols}" style="text-align:center;color:var(--text-3);padding:20px;">Nenhuma vaga nesta categoria</td></tr>` : tbody;
-    document.getElementById("modalTitle").textContent = titulos[tipo] + ` (${lista.length})`;
+    const modalCount = tipo === "abertas"
+        ? lista.reduce((s, v) => s + (v.cadeiras || 1), 0)
+        : lista.length;
+    document.getElementById("modalTitle").textContent = titulos[tipo] + ` (${modalCount})`;
     document.getElementById("modalBody").innerHTML = `<table class="modal-table"><thead>${thead}</thead><tbody>${empty}</tbody></table>`;
     document.getElementById("modalOverlay").classList.add("open");
 }
@@ -1730,15 +1736,4 @@ renderizar();
 </script>
 
 <!-- Modal -->
-<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)fecharModal()">
-    <div class="modal-box">
-        <div class="modal-header">
-            <span class="modal-title" id="modalTitle">—</span>
-            <button class="modal-close" onclick="fecharModal()">✕</button>
-        </div>
-        <div id="modalBody"></div>
-    </div>
-</div>
-
-</body>
-</html>
+<div class="modal-overlay" id="modalOverl
