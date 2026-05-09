@@ -56,14 +56,12 @@
   }
   .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
-  /* Totals */
   .totals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
   .total-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
   .total-icon { width: 38px; height: 38px; background: var(--green-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
   .total-label { font-size: 0.7rem; color: var(--text-2); font-weight: 500; margin-bottom: 2px; }
   .total-value { font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
-  /* Grid de vagas */
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
   .vaga-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
@@ -128,268 +126,171 @@
   <span class="header-title">/ Agenda da Semana</span>
 </header>
 
-<main>
+<main id="app"></main>
 
-  <div class="page-header">
-    <div class="badge"><span class="dot"></span>4 a 8 de maio de 2026</div>
-    <h1>Entrevistas da Semana</h1>
-    <p>HR Interview, Roleplay e Cultura — por vaga: SDR, Closer e Farmer</p>
-  </div>
+<script>
 
-  <div class="totals-row">
-    <div class="total-card">
-      <div class="total-icon">🗓️</div>
-      <div>
-        <div class="total-label">Total de entrevistas</div>
-        <div class="total-value">43</div>
-      </div>
-    </div>
-    <div class="total-card">
-      <div class="total-icon">🎙️</div>
-      <div>
-        <div class="total-label">HR Interview</div>
-        <div class="total-value">31</div>
-      </div>
-    </div>
-    <div class="total-card">
-      <div class="total-icon">🎭</div>
-      <div>
-        <div class="total-label">Roleplay</div>
-        <div class="total-value">10</div>
-      </div>
-    </div>
-    <div class="total-card">
-      <div class="total-icon">🤝</div>
-      <div>
-        <div class="total-label">Cultura</div>
-        <div class="total-value">2</div>
-      </div>
-    </div>
-  </div>
+// ── AGENDA DATA START ──
+const AGENDA = {
+  weekLabel: "4 a 8 de maio de 2026",
+  vagas: {
+    SDR: {
+      hrInterview: [
+        { nome: "Fábio Moreira", dia: "ter" },
+        { nome: "Thalita Garcia Gaia", dia: "qua" },
+        { nome: "Emilly Pereira Souza", dia: "qua" },
+        { nome: "Marco Túlio Guimarães", dia: "qua" },
+        { nome: "Fernando Reyes", dia: "qua" },
+        { nome: "Deborah Moura Cardoso", dia: "qua" },
+        { nome: "Leandro Rodrigues Vital", dia: "qua" },
+        { nome: "Vitoria Cristina", dia: "qui" },
+        { nome: "Henrique Dourado Cavalcante", dia: "sex" }
+      ],
+      roleplay: [
+        { nome: "Clara Rajão", dia: "seg" }
+      ],
+      cultura: [
+        { nome: "Clara Rajão Liboni Passos", dia: "ter" }
+      ]
+    },
+    Closer: {
+      hrInterview: [
+        { nome: "Bruno Arantes Kahey", dia: "seg" },
+        { nome: "Israel Henriques Pantuzzo", dia: "seg" },
+        { nome: "Leandro Magalhães R. da Costa", dia: "seg" },
+        { nome: "Marcos Assis", dia: "ter" },
+        { nome: "André Alvarenga", dia: "ter" },
+        { nome: "Paulo Marques", dia: "ter" },
+        { nome: "Murilo Henrique", dia: "ter" },
+        { nome: "Neliane Lopes", dia: "ter" },
+        { nome: "Fernanda Perdomo", dia: "ter" },
+        { nome: "Antônio Arnaldo de Melo Jr.", dia: "ter" },
+        { nome: "Danielle Rocha Dolabela", dia: "ter" },
+        { nome: "João Pedro Braga de Almeida", dia: "ter" },
+        { nome: "Carol Felizardo", dia: "ter" },
+        { nome: "Alan Costa", dia: "ter" },
+        { nome: "Aline Minardi", dia: "qua" },
+        { nome: "Hudson Vilaça", dia: "qua" },
+        { nome: "Pedro Henrique", dia: "qua" },
+        { nome: "Lorena Aparecida Alves", dia: "qua" },
+        { nome: "Guilherme Borges", dia: "qua" },
+        { nome: "Camilla Gabriella Castro", dia: "qua" }
+      ],
+      roleplay: [
+        { nome: "Luiz Bernardes", dia: "seg" },
+        { nome: "Bruno Arantes", dia: "ter" },
+        { nome: "Fernanda Perdomo", dia: "qua" },
+        { nome: "Rafael Patrick", dia: "qui" },
+        { nome: "Cristiano Antonio", dia: "qui" },
+        { nome: "Paulo Marques", dia: "sex" },
+        { nome: "Antônio Arnaldo de Melo Jr.", dia: "sex" }
+      ],
+      cultura: [
+        { nome: "Luiz Bernardes", dia: "ter" }
+      ]
+    },
+    Farmer: {
+      hrInterview: [
+        { nome: "Alberto Garajal Vieira", dia: "ter" },
+        { nome: "Guilherme Borges", dia: "qua" }
+      ],
+      roleplay: [
+        { nome: "Rubens Meireles", dia: "ter" },
+        { nome: "Alberto Garajal Vieira", dia: "qui" }
+      ],
+      cultura: []
+    }
+  }
+};
+// ── AGENDA DATA END ──
 
-  <div class="grid">
+const STAGE_COLORS = {
+  hrInterview: { dot: 'dot-hr',   count: 'count-hr',   bar: 'bar-hr'   },
+  roleplay:    { dot: 'dot-role', count: 'count-role', bar: 'bar-role' },
+  cultura:     { dot: 'dot-cult', count: 'count-cult', bar: 'bar-cult' }
+};
 
-    <!-- SDR -->
+const STAGE_LABELS = {
+  hrInterview: { nome: 'HR Interview', desc: 'Entrevista com o RH' },
+  roleplay:    { nome: 'Roleplay',     desc: 'Roleplay com os gestores' },
+  cultura:     { nome: 'Cultura',      desc: 'Fit cultural com os sócios da allu' }
+};
+
+function pct(count, max) {
+  return max === 0 ? 0 : Math.round(count / max * 100);
+}
+
+function renderEtapa(stage, candidates, barWidth) {
+  const c = STAGE_COLORS[stage];
+  const l = STAGE_LABELS[stage];
+  const n = candidates.length;
+  return `
+    <div class="etapa">
+      <div class="etapa-top">
+        <div class="etapa-label-wrap">
+          <div class="etapa-dot ${c.dot}"></div>
+          <div>
+            <div class="etapa-nome">${l.nome}</div>
+            <div class="etapa-desc">${l.desc}</div>
+          </div>
+        </div>
+        ${n > 0
+          ? `<div class="etapa-count ${c.count}">${n}</div>`
+          : `<div class="etapa-count count-zero">—</div>`}
+      </div>
+      <div class="etapa-bar-wrap"><div class="etapa-bar ${c.bar}" style="width:${barWidth}%"></div></div>
+      ${n > 0
+        ? `<ul class="candidatos">${candidates.map(cd => `<li>${cd.nome} <span class="dia">${cd.dia}</span></li>`).join('')}</ul>`
+        : `<p class="vazia">Nenhuma entrevista agendada</p>`}
+    </div>`;
+}
+
+function renderVaga(nome, data, maxes) {
+  return `
     <div class="vaga-card">
       <div class="vaga-header">
-        <div class="badge"><span class="dot"></span>SDR</div>
-        <div class="vaga-title">SDR</div>
+        <div class="badge"><span class="dot"></span>${nome}</div>
+        <div class="vaga-title">${nome}</div>
       </div>
       <div class="etapas">
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-hr"></div>
-              <div>
-                <div class="etapa-nome">HR Interview</div>
-                <div class="etapa-desc">Entrevista com o RH</div>
-              </div>
-            </div>
-            <div class="etapa-count count-hr">9</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-hr" style="width:45%"></div></div>
-          <ul class="candidatos">
-            <li>Fábio Moreira <span class="dia">ter</span></li>
-            <li>Thalita Garcia Gaia <span class="dia">qua</span></li>
-            <li>Emilly Pereira Souza <span class="dia">qua</span></li>
-            <li>Marco Túlio Guimarães <span class="dia">qua</span></li>
-            <li>Fernando Reyes <span class="dia">qua</span></li>
-            <li>Deborah Moura Cardoso <span class="dia">qua</span></li>
-            <li>Leandro Rodrigues Vital <span class="dia">qua</span></li>
-            <li>Vitoria Cristina <span class="dia">qui</span></li>
-            <li>Henrique Dourado Cavalcante <span class="dia">sex</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-role"></div>
-              <div>
-                <div class="etapa-nome">Roleplay</div>
-                <div class="etapa-desc">Roleplay com os gestores</div>
-              </div>
-            </div>
-            <div class="etapa-count count-role">1</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-role" style="width:14%"></div></div>
-          <ul class="candidatos">
-            <li>Clara Rajão <span class="dia">seg</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-cult"></div>
-              <div>
-                <div class="etapa-nome">Cultura</div>
-                <div class="etapa-desc">Fit cultural com os sócios da allu</div>
-              </div>
-            </div>
-            <div class="etapa-count count-cult">1</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-cult" style="width:50%"></div></div>
-          <ul class="candidatos">
-            <li>Clara Rajão Liboni Passos <span class="dia">ter</span></li>
-          </ul>
-        </div>
-
+        ${renderEtapa('hrInterview', data.hrInterview, pct(data.hrInterview.length, maxes.hr))}
+        ${renderEtapa('roleplay',    data.roleplay,    pct(data.roleplay.length,    maxes.rp))}
+        ${renderEtapa('cultura',     data.cultura,     pct(data.cultura.length,     maxes.cu))}
       </div>
+    </div>`;
+}
+
+function render() {
+  const names = Object.keys(AGENDA.vagas);
+  const maxes = {
+    hr: Math.max(...names.map(v => AGENDA.vagas[v].hrInterview.length)),
+    rp: Math.max(...names.map(v => AGENDA.vagas[v].roleplay.length)),
+    cu: Math.max(...names.map(v => AGENDA.vagas[v].cultura.length))
+  };
+  const totHR = names.reduce((s, v) => s + AGENDA.vagas[v].hrInterview.length, 0);
+  const totRP = names.reduce((s, v) => s + AGENDA.vagas[v].roleplay.length, 0);
+  const totCU = names.reduce((s, v) => s + AGENDA.vagas[v].cultura.length, 0);
+  const total = totHR + totRP + totCU;
+
+  document.getElementById('app').innerHTML = `
+    <div class="page-header">
+      <div class="badge"><span class="dot"></span>${AGENDA.weekLabel}</div>
+      <h1>Entrevistas da Semana</h1>
+      <p>HR Interview, Roleplay e Cultura — por vaga: ${names.join(', ')}</p>
     </div>
-
-    <!-- Closer -->
-    <div class="vaga-card">
-      <div class="vaga-header">
-        <div class="badge"><span class="dot"></span>Closer</div>
-        <div class="vaga-title">Closer</div>
-      </div>
-      <div class="etapas">
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-hr"></div>
-              <div>
-                <div class="etapa-nome">HR Interview</div>
-                <div class="etapa-desc">Entrevista com o RH</div>
-              </div>
-            </div>
-            <div class="etapa-count count-hr">20</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-hr" style="width:100%"></div></div>
-          <ul class="candidatos">
-            <li>Bruno Arantes Kahey <span class="dia">seg</span></li>
-            <li>Israel Henriques Pantuzzo <span class="dia">seg</span></li>
-            <li>Leandro Magalhães R. da Costa <span class="dia">seg</span></li>
-            <li>Marcos Assis <span class="dia">ter</span></li>
-            <li>André Alvarenga <span class="dia">ter</span></li>
-            <li>Paulo Marques <span class="dia">ter</span></li>
-            <li>Murilo Henrique <span class="dia">ter</span></li>
-            <li>Neliane Lopes <span class="dia">ter</span></li>
-            <li>Fernanda Perdomo <span class="dia">ter</span></li>
-            <li>Antônio Arnaldo de Melo Jr. <span class="dia">ter</span></li>
-            <li>Danielle Rocha Dolabela <span class="dia">ter</span></li>
-            <li>João Pedro Braga de Almeida <span class="dia">ter</span></li>
-            <li>Carol Felizardo <span class="dia">ter</span></li>
-            <li>Alan Costa <span class="dia">ter</span></li>
-            <li>Aline Minardi <span class="dia">qua</span></li>
-            <li>Hudson Vilaça <span class="dia">qua</span></li>
-            <li>Pedro Henrique <span class="dia">qua</span></li>
-            <li>Lorena Aparecida Alves <span class="dia">qua</span></li>
-            <li>Guilherme Borges <span class="dia">qua</span></li>
-            <li>Camilla Gabriella Castro <span class="dia">qua</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-role"></div>
-              <div>
-                <div class="etapa-nome">Roleplay</div>
-                <div class="etapa-desc">Roleplay com os gestores</div>
-              </div>
-            </div>
-            <div class="etapa-count count-role">7</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-role" style="width:100%"></div></div>
-          <ul class="candidatos">
-            <li>Luiz Bernardes <span class="dia">seg</span></li>
-            <li>Bruno Arantes <span class="dia">ter</span></li>
-            <li>Fernanda Perdomo <span class="dia">qua</span></li>
-            <li>Rafael Patrick <span class="dia">qui</span></li>
-            <li>Cristiano Antonio <span class="dia">qui</span></li>
-            <li>Paulo Marques <span class="dia">sex</span></li>
-            <li>Antônio Arnaldo de Melo Jr. <span class="dia">sex</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-cult"></div>
-              <div>
-                <div class="etapa-nome">Cultura</div>
-                <div class="etapa-desc">Fit cultural com os sócios da allu</div>
-              </div>
-            </div>
-            <div class="etapa-count count-cult">1</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-cult" style="width:50%"></div></div>
-          <ul class="candidatos">
-            <li>Luiz Bernardes <span class="dia">ter</span></li>
-          </ul>
-        </div>
-
-      </div>
+    <div class="totals-row">
+      <div class="total-card"><div class="total-icon">🗓️</div><div><div class="total-label">Total de entrevistas</div><div class="total-value">${total}</div></div></div>
+      <div class="total-card"><div class="total-icon">🎙️</div><div><div class="total-label">HR Interview</div><div class="total-value">${totHR}</div></div></div>
+      <div class="total-card"><div class="total-icon">🎭</div><div><div class="total-label">Roleplay</div><div class="total-value">${totRP}</div></div></div>
+      <div class="total-card"><div class="total-icon">🤝</div><div><div class="total-label">Cultura</div><div class="total-value">${totCU}</div></div></div>
     </div>
+    <div class="grid">
+      ${names.map(v => renderVaga(v, AGENDA.vagas[v], maxes)).join('')}
+    </div>`;
+}
 
-    <!-- Farmer -->
-    <div class="vaga-card">
-      <div class="vaga-header">
-        <div class="badge"><span class="dot"></span>Farmer</div>
-        <div class="vaga-title">Farmer</div>
-      </div>
-      <div class="etapas">
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-hr"></div>
-              <div>
-                <div class="etapa-nome">HR Interview</div>
-                <div class="etapa-desc">Entrevista com o RH</div>
-              </div>
-            </div>
-            <div class="etapa-count count-hr">2</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-hr" style="width:10%"></div></div>
-          <ul class="candidatos">
-            <li>Alberto Garajal Vieira <span class="dia">ter</span></li>
-            <li>Guilherme Borges <span class="dia">qua</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-role"></div>
-              <div>
-                <div class="etapa-nome">Roleplay</div>
-                <div class="etapa-desc">Roleplay com os gestores</div>
-              </div>
-            </div>
-            <div class="etapa-count count-role">2</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-role" style="width:29%"></div></div>
-          <ul class="candidatos">
-            <li>Rubens Meireles <span class="dia">ter</span></li>
-            <li>Alberto Garajal Vieira <span class="dia">qui</span></li>
-          </ul>
-        </div>
-
-        <div class="etapa">
-          <div class="etapa-top">
-            <div class="etapa-label-wrap">
-              <div class="etapa-dot dot-cult"></div>
-              <div>
-                <div class="etapa-nome">Cultura</div>
-                <div class="etapa-desc">Fit cultural com os sócios da allu</div>
-              </div>
-            </div>
-            <div class="etapa-count count-zero">—</div>
-          </div>
-          <div class="etapa-bar-wrap"><div class="etapa-bar bar-cult" style="width:0%"></div></div>
-          <p class="vazia">Nenhuma entrevista agendada</p>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</main>
+render();
+</script>
 
 </body>
 </html>
