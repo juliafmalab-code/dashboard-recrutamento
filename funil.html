@@ -368,7 +368,7 @@ function renderCandidate(cd, weekKey, vaga, stage) {
       <div class="cand-actions">
         <button class="btn-approve${status === 'aprovado' ? ' active' : ''}" onclick="_toggle(${idx},'aprovado')" title="Aprovado">✓</button>
         <button class="btn-reject${status === 'reprovado' ? ' active' : ''}" onclick="_toggle(${idx},'reprovado')" title="Reprovado">✗</button>
-        <button class="btn-reschedule${status === 'reagendado' ? ' active' : ''}" onclick="_toggle(${idx},'reagendado')" title="Reagendar">↻</button>
+        <button class="btn-reschedule${status === 'reagendado' ? ' active' : ''}" onclick="_toggle(${idx},'reagendado')" title="Reagendar"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M21 13a9 9 0 1 1-3-7.7L21 8"/></svg></button>
       </div>
     </div>
   </li>`;
