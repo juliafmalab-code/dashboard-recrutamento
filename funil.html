@@ -25,15 +25,9 @@
   body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
   header {
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    background: var(--card); border-bottom: 1px solid var(--border);
+    padding: 0 32px; height: 56px; display: flex; align-items: center; gap: 16px;
   }
-
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .logo:hover .logo-back { opacity: 1; transform: translateX(0); }
   .logo-back { font-size: 0.75rem; color: var(--green); opacity: 0; transform: translateX(4px); transition: opacity 0.2s, transform 0.2s; font-weight: 600; }
@@ -44,67 +38,92 @@
 
   main { padding: 32px; max-width: 1200px; margin: 0 auto; }
 
+  /* Page header + week navigation */
   .page-header { margin-bottom: 28px; }
+  .week-nav-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .week-btn {
+    width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--card); cursor: pointer; color: var(--text-2); font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .week-btn:hover:not(:disabled) { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+  .week-btn:disabled { opacity: 0.3; cursor: default; }
   .page-header h1 { font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.3px; margin-bottom: 4px; }
-  .page-header p { font-size: 0.85rem; color: var(--text-2); }
+  .page-header p  { font-size: 0.85rem; color: var(--text-2); }
 
   .badge {
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 0.6rem; font-weight: 800; letter-spacing: 0.9px; text-transform: uppercase;
     padding: 3px 8px; border-radius: 20px; background: var(--green-bg); color: var(--green);
-    margin-bottom: 10px;
   }
   .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
+  /* Totals */
   .totals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
   .total-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
   .total-icon { width: 38px; height: 38px; background: var(--green-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
   .total-label { font-size: 0.7rem; color: var(--text-2); font-weight: 500; margin-bottom: 2px; }
   .total-value { font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
+  /* Vaga cards */
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
   .vaga-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-
   .vaga-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
   .vaga-title { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-top: 6px; }
-
   .etapas { padding: 14px 0 4px; }
-
   .etapa { padding: 12px 20px 14px; border-bottom: 1px solid var(--border); }
   .etapa:last-child { border-bottom: none; }
-
   .etapa-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-
   .etapa-label-wrap { display: flex; align-items: center; gap: 8px; }
   .etapa-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .dot-hr     { background: #6b7fa3; }
-  .dot-role   { background: #2d7a50; }
-  .dot-cult   { background: var(--green); }
-
+  .dot-hr   { background: #6b7fa3; }
+  .dot-role { background: #2d7a50; }
+  .dot-cult { background: var(--green); }
   .etapa-nome { font-size: 0.8rem; font-weight: 700; color: var(--text); }
   .etapa-desc { font-size: 0.68rem; color: var(--text-3); font-weight: 400; margin-top: 1px; }
-
   .etapa-count { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
   .count-hr   { color: #6b7fa3; }
   .count-role { color: #2d7a50; }
   .count-cult { color: var(--green); }
   .count-zero { color: var(--text-3); font-size: 1rem; }
-
   .etapa-bar-wrap { height: 3px; background: var(--border); border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
   .etapa-bar { height: 100%; border-radius: 4px; }
   .bar-hr   { background: #b0bfde; }
   .bar-role { background: #4aab78; }
   .bar-cult { background: var(--green); }
 
+  /* Candidate list */
   .candidatos { list-style: none; display: flex; flex-direction: column; gap: 4px; }
   .candidatos li {
     font-size: 0.7rem; color: var(--text-2); font-weight: 500;
     padding: 4px 8px; border-radius: 6px; background: var(--bg);
     display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s;
   }
-  .candidatos li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--text-3); flex-shrink: 0; }
-  .candidatos .dia { font-size: 0.6rem; color: var(--text-3); font-weight: 600; margin-left: auto; text-transform: uppercase; letter-spacing: 0.5px; }
+  .candidatos li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--text-3); flex-shrink: 0; transition: background 0.15s; }
+  .cand-nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cand-right { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .dia { font-size: 0.6rem; color: var(--text-3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cand-actions { display: flex; gap: 3px; }
+  .btn-approve, .btn-reject {
+    width: 18px; height: 18px; border: none; border-radius: 4px;
+    cursor: pointer; font-size: 9px; font-weight: 900; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .btn-approve { background: #d4edda; color: #2e7d32; }
+  .btn-reject  { background: #f8d7da; color: #c62828; }
+  .btn-approve:hover { background: #b8dfc4; transform: scale(1.1); }
+  .btn-reject:hover  { background: #f4bec3; transform: scale(1.1); }
+  .btn-approve.active { background: #28a745; color: white; }
+  .btn-reject.active  { background: #dc3545; color: white; }
+
+  /* Approved / rejected row state */
+  .candidatos li.aprovado { background: #d4edda; }
+  .candidatos li.reprovado { background: #fdecea; }
+  .candidatos li.aprovado::before  { background: #28a745; }
+  .candidatos li.reprovado::before { background: #dc3545; }
 
   .vazia { font-size: 0.72rem; color: var(--text-3); font-style: italic; padding: 4px 0; }
 
@@ -132,130 +151,288 @@
 
 // ── AGENDA DATA START ──
 const AGENDA = {
-  weekLabel: "11 a 15 de maio de 2026",
-  vagas: {
-    SDR: {
-      hrInterview: [
-        { nome: "Mikaella Vila Real", dia: "seg" },
-        { nome: "Agata Morais Ribeiro", dia: "seg" },
-        { nome: "Miguel Pimenta", dia: "seg" },
-        { nome: "Joyce Helen", dia: "seg" }
-      ],
-      roleplay: [
-        { nome: "Victor dos Anjos Costa", dia: "seg" }
-      ],
-      cultura: []
+  weeks: {
+    "2026-05-04": {
+      weekLabel: "4 a 8 de maio de 2026",
+      vagas: {
+        SDR: {
+          hrInterview: [
+            { nome: "Fábio Moreira", dia: "ter" },
+            { nome: "Thalita Garcia Gaia", dia: "qua" },
+            { nome: "Emilly Pereira Souza", dia: "qua" },
+            { nome: "Marco Túlio Guimarães", dia: "qua" },
+            { nome: "Fernando Reyes", dia: "qua" },
+            { nome: "Deborah Moura Cardoso", dia: "qua" },
+            { nome: "Leandro Rodrigues Vital", dia: "qua" },
+            { nome: "Vitoria Cristina", dia: "qui" },
+            { nome: "Henrique Dourado Cavalcante", dia: "sex" }
+          ],
+          roleplay: [
+            { nome: "Clara Rajão", dia: "seg" }
+          ],
+          cultura: [
+            { nome: "Clara Rajão Liboni Passos", dia: "ter" }
+          ]
+        },
+        Closer: {
+          hrInterview: [
+            { nome: "Bruno Arantes Kahey", dia: "seg" },
+            { nome: "Israel Henriques Pantuzzo", dia: "seg" },
+            { nome: "Leandro Magalhães R. da Costa", dia: "seg" },
+            { nome: "Marcos Assis", dia: "ter" },
+            { nome: "André Alvarenga", dia: "ter" },
+            { nome: "Paulo Marques", dia: "ter" },
+            { nome: "Murilo Henrique", dia: "ter" },
+            { nome: "Neliane Lopes", dia: "ter" },
+            { nome: "Fernanda Perdomo", dia: "ter" },
+            { nome: "Antônio Arnaldo de Melo Jr.", dia: "ter" },
+            { nome: "Danielle Rocha Dolabela", dia: "ter" },
+            { nome: "João Pedro Braga de Almeida", dia: "ter" },
+            { nome: "Carol Felizardo", dia: "ter" },
+            { nome: "Alan Costa", dia: "ter" },
+            { nome: "Aline Minardi", dia: "qua" },
+            { nome: "Hudson Vilaça", dia: "qua" },
+            { nome: "Pedro Henrique", dia: "qua" },
+            { nome: "Lorena Aparecida Alves", dia: "qua" },
+            { nome: "Guilherme Borges", dia: "qua" },
+            { nome: "Camilla Gabriella Castro", dia: "qua" }
+          ],
+          roleplay: [
+            { nome: "Luiz Bernardes", dia: "seg" },
+            { nome: "Bruno Arantes", dia: "ter" },
+            { nome: "Fernanda Perdomo", dia: "qua" },
+            { nome: "Rafael Patrick", dia: "qui" },
+            { nome: "Cristiano Antonio", dia: "qui" },
+            { nome: "Paulo Marques", dia: "sex" },
+            { nome: "Antônio Arnaldo de Melo Jr.", dia: "sex" }
+          ],
+          cultura: [
+            { nome: "Luiz Bernardes", dia: "ter" }
+          ]
+        },
+        Farmer: {
+          hrInterview: [
+            { nome: "Alberto Garajal Vieira", dia: "ter" },
+            { nome: "Guilherme Borges", dia: "qua" }
+          ],
+          roleplay: [
+            { nome: "Rubens Meireles", dia: "ter" },
+            { nome: "Alberto Garajal Vieira", dia: "qui" }
+          ],
+          cultura: []
+        }
+      }
     },
-    Closer: {
-      hrInterview: [
-        { nome: "Lais Santos", dia: "seg" },
-        { nome: "Sarah AKL", dia: "seg" },
-        { nome: "Ana Luísa", dia: "seg" }
-      ],
-      roleplay: [
-        { nome: "Fabiano Jose da Silva", dia: "seg" }
-      ],
-      cultura: []
-    },
-    Farmer: {
-      hrInterview: [
-        { nome: "Suelem Souza", dia: "seg" },
-        { nome: "Marcos Antonio de Souza", dia: "seg" },
-        { nome: "Stephany Leoncio", dia: "seg" },
-        { nome: "Fhelipe Octavio", dia: "seg" },
-        { nome: "Fernanda Santos Vidigal Nascimento", dia: "seg" }
-      ],
-      roleplay: [],
-      cultura: []
+    "2026-05-11": {
+      weekLabel: "11 a 15 de maio de 2026",
+      vagas: {
+        SDR: {
+          hrInterview: [
+            { nome: "Mikaella Vila Real", dia: "seg" },
+            { nome: "Agata Morais Ribeiro", dia: "seg" },
+            { nome: "Miguel Pimenta", dia: "seg" },
+            { nome: "Joyce Helen", dia: "seg" }
+          ],
+          roleplay: [
+            { nome: "Victor dos Anjos Costa", dia: "seg" }
+          ],
+          cultura: []
+        },
+        Closer: {
+          hrInterview: [
+            { nome: "Lais Santos", dia: "seg" },
+            { nome: "Sarah AKL", dia: "seg" },
+            { nome: "Ana Luísa", dia: "seg" }
+          ],
+          roleplay: [
+            { nome: "Elaine Rodrigues", dia: "seg" },
+            { nome: "Fabiano Jose da Silva", dia: "seg" },
+            { nome: "Lorena Aparecida", dia: "seg" },
+            { nome: "Alberto Garajal Vieira", dia: "seg" }
+          ],
+          cultura: []
+        },
+        Farmer: {
+          hrInterview: [
+            { nome: "Suelem Souza", dia: "seg" },
+            { nome: "Marcos Antonio de Souza", dia: "seg" },
+            { nome: "Stephany Leoncio", dia: "seg" },
+            { nome: "Fhelipe Octavio", dia: "seg" },
+            { nome: "Fernanda Santos Vidigal Nascimento", dia: "seg" }
+          ],
+          roleplay: [
+            { nome: "Elaine Rodrigues", dia: "seg" }
+          ],
+          cultura: []
+        }
+      }
     }
   }
 };
 // ── AGENDA DATA END ──
+
+// ── CONSTANTS ──
+const MONTH_NAMES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 
 const STAGE_COLORS = {
   hrInterview: { dot: 'dot-hr',   count: 'count-hr',   bar: 'bar-hr'   },
   roleplay:    { dot: 'dot-role', count: 'count-role', bar: 'bar-role' },
   cultura:     { dot: 'dot-cult', count: 'count-cult', bar: 'bar-cult' }
 };
-
 const STAGE_LABELS = {
   hrInterview: { nome: 'HR Interview', desc: 'Entrevista com o RH' },
   roleplay:    { nome: 'Roleplay',     desc: 'Roleplay com os gestores' },
   cultura:     { nome: 'Cultura',      desc: 'Fit cultural com os sócios da allu' }
 };
 
-function pct(count, max) {
-  return max === 0 ? 0 : Math.round(count / max * 100);
+// ── WEEK GENERATION ──
+function generateWeeks(from, count) {
+  const weeks = [];
+  const d = new Date(from + 'T12:00:00');
+  for (let i = 0; i < count; i++) {
+    weeks.push(d.toISOString().slice(0, 10));
+    d.setDate(d.getDate() + 7);
+  }
+  return weeks;
 }
 
-function renderEtapa(stage, candidates, barWidth) {
-  const c = STAGE_COLORS[stage];
-  const l = STAGE_LABELS[stage];
-  const n = candidates.length;
-  return `
-    <div class="etapa">
-      <div class="etapa-top">
-        <div class="etapa-label-wrap">
-          <div class="etapa-dot ${c.dot}"></div>
-          <div>
-            <div class="etapa-nome">${l.nome}</div>
-            <div class="etapa-desc">${l.desc}</div>
-          </div>
+function weekLabel(mondayStr) {
+  if (AGENDA.weeks[mondayStr]) return AGENDA.weeks[mondayStr].weekLabel;
+  const mon = new Date(mondayStr + 'T12:00:00');
+  const fri = new Date(mon); fri.setDate(mon.getDate() + 4);
+  const d1 = mon.getDate(), m1 = mon.getMonth();
+  const d2 = fri.getDate(), m2 = fri.getMonth(), y = fri.getFullYear();
+  return m1 === m2
+    ? `${d1} a ${d2} de ${MONTH_NAMES[m1]} de ${y}`
+    : `${d1} de ${MONTH_NAMES[m1]} a ${d2} de ${MONTH_NAMES[m2]} de ${y}`;
+}
+
+const ALL_WEEKS = generateWeeks('2026-05-04', 28);
+
+// Default to the last week that has data
+const weeksWithData = ALL_WEEKS.filter(w => AGENDA.weeks[w]);
+let weekIdx = weeksWithData.length
+  ? ALL_WEEKS.indexOf(weeksWithData[weeksWithData.length - 1])
+  : 1;
+
+// ── APPROVAL STATUS (localStorage) ──
+function lsKey(weekKey, vaga, stage, nome) {
+  return `allu|${weekKey}|${vaga}|${stage}|${nome}`;
+}
+function getStatus(weekKey, vaga, stage, nome) {
+  return localStorage.getItem(lsKey(weekKey, vaga, stage, nome)) || '';
+}
+
+// Global registry reset each render — avoids string-escaping issues in onclick
+let _reg = [];
+window._toggle = function(idx, val) {
+  const {weekKey, vaga, stage, nome} = _reg[idx];
+  const k = lsKey(weekKey, vaga, stage, nome);
+  if (localStorage.getItem(k) === val) localStorage.removeItem(k);
+  else localStorage.setItem(k, val);
+  render();
+};
+
+// ── RENDERING ──
+function pct(n, max) { return max === 0 ? 0 : Math.round(n / max * 100); }
+
+function renderCandidate(cd, weekKey, vaga, stage) {
+  const status = getStatus(weekKey, vaga, stage, cd.nome);
+  const idx = _reg.length;
+  _reg.push({ weekKey, vaga, stage, nome: cd.nome });
+  return `<li class="${status}">
+    <span class="cand-nome">${cd.nome}</span>
+    <div class="cand-right">
+      <span class="dia">${cd.dia}</span>
+      <div class="cand-actions">
+        <button class="btn-approve${status === 'aprovado' ? ' active' : ''}" onclick="_toggle(${idx},'aprovado')" title="Aprovado">✓</button>
+        <button class="btn-reject${status === 'reprovado' ? ' active' : ''}" onclick="_toggle(${idx},'reprovado')" title="Reprovado">✗</button>
+      </div>
+    </div>
+  </li>`;
+}
+
+function renderEtapa(stage, candidates, barWidth, weekKey, vaga) {
+  const c = STAGE_COLORS[stage], l = STAGE_LABELS[stage], n = candidates.length;
+  return `<div class="etapa">
+    <div class="etapa-top">
+      <div class="etapa-label-wrap">
+        <div class="etapa-dot ${c.dot}"></div>
+        <div>
+          <div class="etapa-nome">${l.nome}</div>
+          <div class="etapa-desc">${l.desc}</div>
         </div>
-        ${n > 0
-          ? `<div class="etapa-count ${c.count}">${n}</div>`
-          : `<div class="etapa-count count-zero">—</div>`}
       </div>
-      <div class="etapa-bar-wrap"><div class="etapa-bar ${c.bar}" style="width:${barWidth}%"></div></div>
-      ${n > 0
-        ? `<ul class="candidatos">${candidates.map(cd => `<li>${cd.nome} <span class="dia">${cd.dia}</span></li>`).join('')}</ul>`
-        : `<p class="vazia">Nenhuma entrevista agendada</p>`}
-    </div>`;
+      ${n > 0 ? `<div class="etapa-count ${c.count}">${n}</div>` : `<div class="etapa-count count-zero">—</div>`}
+    </div>
+    <div class="etapa-bar-wrap"><div class="etapa-bar ${c.bar}" style="width:${barWidth}%"></div></div>
+    ${n > 0
+      ? `<ul class="candidatos">${candidates.map(cd => renderCandidate(cd, weekKey, vaga, stage)).join('')}</ul>`
+      : `<p class="vazia">Nenhuma entrevista agendada</p>`}
+  </div>`;
 }
 
-function renderVaga(nome, data, maxes) {
-  return `
-    <div class="vaga-card">
-      <div class="vaga-header">
-        <div class="badge"><span class="dot"></span>${nome}</div>
-        <div class="vaga-title">${nome}</div>
-      </div>
-      <div class="etapas">
-        ${renderEtapa('hrInterview', data.hrInterview, pct(data.hrInterview.length, maxes.hr))}
-        ${renderEtapa('roleplay',    data.roleplay,    pct(data.roleplay.length,    maxes.rp))}
-        ${renderEtapa('cultura',     data.cultura,     pct(data.cultura.length,     maxes.cu))}
-      </div>
-    </div>`;
+function renderVaga(nome, data, maxes, weekKey) {
+  return `<div class="vaga-card">
+    <div class="vaga-header">
+      <div class="badge"><span class="dot"></span>${nome}</div>
+      <div class="vaga-title">${nome}</div>
+    </div>
+    <div class="etapas">
+      ${renderEtapa('hrInterview', data.hrInterview, pct(data.hrInterview.length, maxes.hr), weekKey, nome)}
+      ${renderEtapa('roleplay',    data.roleplay,    pct(data.roleplay.length,    maxes.rp), weekKey, nome)}
+      ${renderEtapa('cultura',     data.cultura,     pct(data.cultura.length,     maxes.cu), weekKey, nome)}
+    </div>
+  </div>`;
 }
 
 function render() {
-  const names = Object.keys(AGENDA.vagas);
+  _reg = [];
+  const weekKey = ALL_WEEKS[weekIdx];
+  const weekData = AGENDA.weeks[weekKey];
+  const EMPTY = { hrInterview: [], roleplay: [], cultura: [] };
+  const vagas = weekData ? weekData.vagas : { SDR: EMPTY, Closer: EMPTY, Farmer: EMPTY };
+  const names = Object.keys(vagas);
+
   const maxes = {
-    hr: Math.max(...names.map(v => AGENDA.vagas[v].hrInterview.length)),
-    rp: Math.max(...names.map(v => AGENDA.vagas[v].roleplay.length)),
-    cu: Math.max(...names.map(v => AGENDA.vagas[v].cultura.length))
+    hr: Math.max(1, ...names.map(v => vagas[v].hrInterview.length)),
+    rp: Math.max(1, ...names.map(v => vagas[v].roleplay.length)),
+    cu: Math.max(1, ...names.map(v => vagas[v].cultura.length))
   };
-  const totHR = names.reduce((s, v) => s + AGENDA.vagas[v].hrInterview.length, 0);
-  const totRP = names.reduce((s, v) => s + AGENDA.vagas[v].roleplay.length, 0);
-  const totCU = names.reduce((s, v) => s + AGENDA.vagas[v].cultura.length, 0);
+  const totHR = names.reduce((s, v) => s + vagas[v].hrInterview.length, 0);
+  const totRP = names.reduce((s, v) => s + vagas[v].roleplay.length, 0);
+  const totCU = names.reduce((s, v) => s + vagas[v].cultura.length, 0);
   const total = totHR + totRP + totCU;
+
+  const label = weekLabel(weekKey);
+  const isPrev = weekIdx > 0;
+  const isNext = weekIdx < ALL_WEEKS.length - 1;
 
   document.getElementById('app').innerHTML = `
     <div class="page-header">
-      <div class="badge"><span class="dot"></span>${AGENDA.weekLabel}</div>
+      <div class="week-nav-row">
+        <button class="week-btn" onclick="prevWeek()" ${isPrev ? '' : 'disabled'} title="Semana anterior">&#8592;</button>
+        <div class="badge"><span class="dot"></span>${label}</div>
+        <button class="week-btn" onclick="nextWeek()" ${isNext ? '' : 'disabled'} title="Próxima semana">&#8594;</button>
+      </div>
       <h1>Entrevistas da Semana</h1>
       <p>HR Interview, Roleplay e Cultura — por vaga: ${names.join(', ')}</p>
     </div>
+
     <div class="totals-row">
       <div class="total-card"><div class="total-icon">🗓️</div><div><div class="total-label">Total de entrevistas</div><div class="total-value">${total}</div></div></div>
       <div class="total-card"><div class="total-icon">🎙️</div><div><div class="total-label">HR Interview</div><div class="total-value">${totHR}</div></div></div>
       <div class="total-card"><div class="total-icon">🎭</div><div><div class="total-label">Roleplay</div><div class="total-value">${totRP}</div></div></div>
       <div class="total-card"><div class="total-icon">🤝</div><div><div class="total-label">Cultura</div><div class="total-value">${totCU}</div></div></div>
     </div>
+
     <div class="grid">
-      ${names.map(v => renderVaga(v, AGENDA.vagas[v], maxes)).join('')}
+      ${names.map(v => renderVaga(v, vagas[v], maxes, weekKey)).join('')}
     </div>`;
 }
+
+function prevWeek() { if (weekIdx > 0) { weekIdx--; render(); } }
+function nextWeek() { if (weekIdx < ALL_WEEKS.length - 1) { weekIdx++; render(); } }
 
 render();
 </script>
