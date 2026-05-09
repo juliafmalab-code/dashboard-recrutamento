@@ -116,14 +116,19 @@
   .btn-reject  { background: #f8d7da; color: #c62828; }
   .btn-approve:hover { background: #b8dfc4; transform: scale(1.1); }
   .btn-reject:hover  { background: #f4bec3; transform: scale(1.1); }
-  .btn-approve.active { background: #28a745; color: white; }
-  .btn-reject.active  { background: #dc3545; color: white; }
+  .btn-approve.active    { background: #28a745; color: white; }
+  .btn-reject.active     { background: #dc3545; color: white; }
+  .btn-reschedule        { background: #fff3cd; color: #856404; }
+  .btn-reschedule:hover  { background: #ffe69c; transform: scale(1.1); }
+  .btn-reschedule.active { background: #fd7e14; color: white; }
 
-  /* Approved / rejected row state */
-  .candidatos li.aprovado { background: #d4edda; }
-  .candidatos li.reprovado { background: #fdecea; }
-  .candidatos li.aprovado::before  { background: #28a745; }
-  .candidatos li.reprovado::before { background: #dc3545; }
+  /* Approved / rejected / rescheduled row state */
+  .candidatos li.aprovado    { background: #d4edda; }
+  .candidatos li.reprovado   { background: #fdecea; }
+  .candidatos li.reagendado  { background: #fff8e6; }
+  .candidatos li.aprovado::before   { background: #28a745; }
+  .candidatos li.reprovado::before  { background: #dc3545; }
+  .candidatos li.reagendado::before { background: #fd7e14; }
 
   .vazia { font-size: 0.72rem; color: var(--text-3); font-style: italic; padding: 4px 0; }
 
@@ -363,6 +368,7 @@ function renderCandidate(cd, weekKey, vaga, stage) {
       <div class="cand-actions">
         <button class="btn-approve${status === 'aprovado' ? ' active' : ''}" onclick="_toggle(${idx},'aprovado')" title="Aprovado">✓</button>
         <button class="btn-reject${status === 'reprovado' ? ' active' : ''}" onclick="_toggle(${idx},'reprovado')" title="Reprovado">✗</button>
+        <button class="btn-reschedule${status === 'reagendado' ? ' active' : ''}" onclick="_toggle(${idx},'reagendado')" title="Reagendar">↻</button>
       </div>
     </div>
   </li>`;
