@@ -66,11 +66,17 @@
   .total-label { font-size: 0.7rem; color: var(--text-2); font-weight: 500; margin-bottom: 2px; }
   .total-value { font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
+  /* Vaga groups */
+  .grupo { margin-bottom: 28px; }
+  .grupo-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; padding: 0 4px; }
+  .grupo-titulo { font-size: 0.72rem; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-2); }
+  .grupo-count { font-size: 0.7rem; font-weight: 600; color: var(--text-3); }
+
   /* Vaga cards */
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .vaga-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-  .vaga-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
-  .vaga-title { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-top: 6px; }
+  .vaga-header { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
+  .vaga-title { font-size: 0.95rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-top: 6px; line-height: 1.25; min-height: 2.4em; }
   .etapas { padding: 14px 0 4px; }
   .etapa { padding: 12px 20px 14px; border-bottom: 1px solid var(--border); }
   .etapa:last-child { border-bottom: none; }
@@ -325,6 +331,26 @@ const AGENDA = {
           "hrInterview": [],
           "roleplay": [],
           "cultura": []
+        },
+        "Sales Enablement Sênior": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
+        },
+        "Coord./Supervisão de SDR": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
+        },
+        "Supervisão de Farmer": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
+        },
+        "Head/Gerente Sênior de Vendas": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
         }
       }
     }
@@ -456,27 +482,50 @@ function renderVaga(nome, data, maxes, weekKey) {
   </div>`;
 }
 
+const VAGA_GROUPS = [
+  { titulo: 'Operação', vagas: ['SDR', 'Closer', 'Farmer', 'TA'] },
+  { titulo: 'Liderança & Especialistas', vagas: ['Sales Enablement Sênior', 'Coord./Supervisão de SDR', 'Supervisão de Farmer', 'Head/Gerente Sênior de Vendas'] }
+];
+
 function render() {
   _reg = [];
   const weekKey = ALL_WEEKS[weekIdx];
   const weekData = AGENDA.weeks[weekKey];
   const EMPTY = { hrInterview: [], roleplay: [], cultura: [] };
-  const vagas = weekData ? weekData.vagas : { SDR: EMPTY, Closer: EMPTY, Farmer: EMPTY, TA: EMPTY };
-  const names = Object.keys(vagas);
+  const FALLBACK = Object.fromEntries(VAGA_GROUPS.flatMap(g => g.vagas).map(v => [v, EMPTY]));
+  const vagas = weekData ? weekData.vagas : FALLBACK;
+  const names = VAGA_GROUPS.flatMap(g => g.vagas).filter(v => vagas[v]);
 
+  const get = v => vagas[v] || EMPTY;
   const maxes = {
-    hr: Math.max(1, ...names.map(v => vagas[v].hrInterview.length)),
-    rp: Math.max(1, ...names.map(v => vagas[v].roleplay.length)),
-    cu: Math.max(1, ...names.map(v => vagas[v].cultura.length))
+    hr: Math.max(1, ...names.map(v => get(v).hrInterview.length)),
+    rp: Math.max(1, ...names.map(v => get(v).roleplay.length)),
+    cu: Math.max(1, ...names.map(v => get(v).cultura.length))
   };
-  const totHR = names.reduce((s, v) => s + vagas[v].hrInterview.length, 0);
-  const totRP = names.reduce((s, v) => s + vagas[v].roleplay.length, 0);
-  const totCU = names.reduce((s, v) => s + vagas[v].cultura.length, 0);
+  const totHR = names.reduce((s, v) => s + get(v).hrInterview.length, 0);
+  const totRP = names.reduce((s, v) => s + get(v).roleplay.length, 0);
+  const totCU = names.reduce((s, v) => s + get(v).cultura.length, 0);
   const total = totHR + totRP + totCU;
 
   const label = weekLabel(weekKey);
   const isPrev = weekIdx > 0;
   const isNext = weekIdx < ALL_WEEKS.length - 1;
+
+  const renderGrupo = grupo => {
+    const vagasGrupo = grupo.vagas.filter(v => vagas[v]);
+    if (!vagasGrupo.length) return '';
+    const totG = vagasGrupo.reduce((s, v) => s + get(v).hrInterview.length + get(v).roleplay.length + get(v).cultura.length, 0);
+    return `
+      <div class="grupo">
+        <div class="grupo-header">
+          <h2 class="grupo-titulo">${grupo.titulo}</h2>
+          <span class="grupo-count">${totG} ${totG === 1 ? 'entrevista' : 'entrevistas'}</span>
+        </div>
+        <div class="grid">
+          ${vagasGrupo.map(v => renderVaga(v, get(v), maxes, weekKey)).join('')}
+        </div>
+      </div>`;
+  };
 
   document.getElementById('app').innerHTML = `
     <div class="page-header">
@@ -486,7 +535,7 @@ function render() {
         <button class="week-btn" onclick="nextWeek()" ${isNext ? '' : 'disabled'} title="Próxima semana">&#8594;</button>
       </div>
       <h1>Entrevistas da Semana</h1>
-      <p>HR Interview, Roleplay e Cultura — por vaga: ${names.join(', ')}</p>
+      <p>HR Interview, Roleplay e Cultura — agrupado por Operação e Liderança</p>
     </div>
 
     <div class="totals-row">
@@ -496,9 +545,7 @@ function render() {
       <div class="total-card"><div class="total-icon">🤝</div><div><div class="total-label">Cultura</div><div class="total-value">${totCU}</div></div></div>
     </div>
 
-    <div class="grid">
-      ${names.map(v => renderVaga(v, vagas[v], maxes, weekKey)).join('')}
-    </div>`;
+    ${VAGA_GROUPS.map(renderGrupo).join('')}`;
 }
 
 function prevWeek() { if (weekIdx > 0) { weekIdx--; render(); } }
