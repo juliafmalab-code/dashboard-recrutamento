@@ -140,20 +140,24 @@
   .vazia { font-size: 0.72rem; color: var(--text-3); font-style: italic; padding: 4px 0; }
 
   /* Approval / rejection stats strip */
-  .etapa-stats { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
-  .stat-pill { flex: 1; display: flex; align-items: center; gap: 5px; padding: 5px 9px; border-radius: 7px; }
+  .etapa-stats { display: flex; gap: 5px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-pill { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 4px; padding: 5px 7px; border-radius: 7px; }
   .stat-pill.aprov  { background: #eaf7ee; }
   .stat-pill.reprov { background: #fdecea; }
+  .stat-pill.reag   { background: #dbeafe; }
   .stat-pill .stat-icon { font-size: 0.7rem; font-weight: 900; }
   .stat-pill.aprov  .stat-icon { color: #1b6b2e; }
   .stat-pill.reprov .stat-icon { color: #c62828; }
+  .stat-pill.reag   .stat-icon { color: #1e40af; }
   .stat-pill .stat-n { font-size: 0.82rem; font-weight: 800; letter-spacing: -0.3px; }
   .stat-pill.aprov  .stat-n { color: #1b6b2e; }
   .stat-pill.reprov .stat-n { color: #c62828; }
-  .stat-pill .stat-lbl { font-size: 0.6rem; font-weight: 500; color: var(--text-2); }
+  .stat-pill.reag   .stat-n { color: #1e40af; }
+  .stat-pill .stat-lbl { font-size: 0.58rem; font-weight: 500; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .stat-pill .stat-pct { font-size: 0.62rem; font-weight: 700; margin-left: auto; }
   .stat-pill.aprov  .stat-pct { color: #2e7d32; }
   .stat-pill.reprov .stat-pct { color: #b71c1c; }
+  .stat-pill.reag   .stat-pct { color: #2563eb; }
 
   @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
@@ -521,8 +525,10 @@ function renderEtapa(stage, candidates, barWidth, weekKey, vaga) {
   const c = STAGE_COLORS[stage], l = STAGE_LABELS[stage], n = candidates.length;
   const nAprov  = candidates.filter(cd => getStatus(weekKey, vaga, stage, cd.nome) === 'aprovado').length;
   const nReprov = candidates.filter(cd => getStatus(weekKey, vaga, stage, cd.nome) === 'reprovado').length;
+  const nReag   = candidates.filter(cd => getStatus(weekKey, vaga, stage, cd.nome) === 'reagendado').length;
   const pctAprov  = n > 0 ? Math.round(nAprov  / n * 100) : 0;
   const pctReprov = n > 0 ? Math.round(nReprov / n * 100) : 0;
+  const pctReag   = n > 0 ? Math.round(nReag   / n * 100) : 0;
   return `<div class="etapa">
     <div class="etapa-top">
       <div class="etapa-label-wrap">
@@ -538,8 +544,9 @@ function renderEtapa(stage, candidates, barWidth, weekKey, vaga) {
     ${n > 0
       ? `<ul class="candidatos">${candidates.map(cd => renderCandidate(cd, weekKey, vaga, stage)).join('')}</ul>
          <div class="etapa-stats">
-           <div class="stat-pill aprov"><span class="stat-icon">✓</span><span class="stat-n">${nAprov}</span><span class="stat-lbl">aprovados</span><span class="stat-pct">${pctAprov}%</span></div>
-           <div class="stat-pill reprov"><span class="stat-icon">✗</span><span class="stat-n">${nReprov}</span><span class="stat-lbl">reprovados</span><span class="stat-pct">${pctReprov}%</span></div>
+           <div class="stat-pill aprov"><span class="stat-icon">✓</span><span class="stat-n">${nAprov}</span><span class="stat-lbl">aprov.</span><span class="stat-pct">${pctAprov}%</span></div>
+           <div class="stat-pill reprov"><span class="stat-icon">✗</span><span class="stat-n">${nReprov}</span><span class="stat-lbl">reprov.</span><span class="stat-pct">${pctReprov}%</span></div>
+           <div class="stat-pill reag"><span class="stat-icon">↻</span><span class="stat-n">${nReag}</span><span class="stat-lbl">reag.</span><span class="stat-pct">${pctReag}%</span></div>
          </div>`
       : `<p class="vazia">Nenhuma entrevista agendada</p>`}
   </div>`;
