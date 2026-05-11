@@ -454,9 +454,9 @@ const DADOS = {
     },
 
     "2026-04": {
-        vagas: { abertas: 4, fechadas: 5, congeladas: 1, canceladas: 0 },
+        vagas: { abertas: 5, fechadas: 6, congeladas: 0, canceladas: 0 },
         candidaturas: { media: 185 },
-        sla: { dentro: 4, fora: 7 },
+        sla: { dentro: 7, fora: 4 },
         desligamentos: { total: 0, precoce: 0 },
         meta: {
             concluida: 5, total: 11,
@@ -486,9 +486,22 @@ const DADOS = {
             { etapa: "Contratados",  candidatos: 21   }
         ],
         vagasDetalhes: {
-            abertas:    [ { nome: "Closer", recrutador: "Ana",  abertura: "2026-04-09", slaAlvo: 30, cadeiras: 3 }, { nome: "Farmer", recrutador: "Lara", abertura: "2026-04-09", slaAlvo: 30, cadeiras: 1 } ],
-            fechadas:   [ { nome: "SDR",                recrutador: "Lara",  fechamento: "2026-04-09", dias: 24 }, { nome: "Designer Sênior", recrutador: "Lara", fechamento: "2026-04-16", dias: 29 }, { nome: "PD Sênior", recrutador: "Lara", fechamento: "2026-04-29", dias: 28 } ],
-            congeladas: [ { nome: "PD Internal Tools",  recrutador: "Lara",  congelamento: "2026-04-30", motivo: "redirecionamento de prioridade" } ],
+            abertas: [
+                { nome: "Closer | @invistanaallu",                  recrutador: "—",                          abertura: "2026-04-09", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Gerente de Contas (Farmer) | @invistanaallu", recrutador: "Lucas Machado Miranda",   abertura: "2026-04-09", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Assistente Jurídico | @allu.oficial",      recrutador: "Lara Mahe Souza",            abertura: "2026-04-23", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Product Manager - Produto e Growth",       recrutador: "Lara Mahe Souza",            abertura: "2026-04-24", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Analista de atração de talentos - Pleno",  recrutador: "Ana Soares",                 abertura: "2026-04-30", slaAlvo: 30, cadeiras: 1 }
+            ],
+            fechadas: [
+                { nome: "SDR | @invistanaallu",                       recrutador: "Ana Beatriz Dias Souza",   fechamento: "2026-04-09", dias: 132 },
+                { nome: "Assistente de Prevenção à Fraude",           recrutador: "Samuel Aranha Sant'Anna",  fechamento: "2026-04-13", dias: 47  },
+                { nome: "Designer | @invistanaallu",                  recrutador: "—",                        fechamento: "2026-04-16", dias: 29  },
+                { nome: "Analista de Compras Sênior",                 recrutador: "—",                        fechamento: "2026-04-20", dias: 76  },
+                { nome: "Supervisor de Inteligência de Recup. Judicial", recrutador: "—",                     fechamento: "2026-04-27", dias: 60  },
+                { nome: "Senior Product Designer, Growth",            recrutador: "—",                        fechamento: "2026-04-29", dias: 28  }
+            ],
+            congeladas: [],
             canceladas: []
         },
         vagasHistorico: [
@@ -548,9 +561,9 @@ const DADOS = {
             { vaga: "PD Internal Tools",  candidaturas: 16  }
         ],
         recrutadores: [
-            { nome: "Ana",   fechadas: 0, fechadasDentroSLA: 0 },
-            { nome: "Júlia", fechadas: 0, fechadasDentroSLA: 0 },
-            { nome: "Lara",  fechadas: 5, fechadasDentroSLA: 5 }
+            { nome: "Ana Beatriz Dias Souza",   fechadas: 1, fechadasDentroSLA: 0 },
+            { nome: "Samuel Aranha Sant'Anna",  fechadas: 1, fechadasDentroSLA: 0 },
+            { nome: "Sem recrutador atribuído", fechadas: 4, fechadasDentroSLA: 2 }
         ],
         recusas: {
             abordados: 1110,
@@ -566,9 +579,9 @@ const DADOS = {
     },
 
     "2026-05": {
-        vagas: { abertas: 7, fechadas: 0, congeladas: 0, canceladas: 0 },
+        vagas: { abertas: 9, fechadas: 2, congeladas: 0, canceladas: 0 },
         candidaturas: { media: 438 },
-        sla: { dentro: 12, fora: 6 },
+        sla: { dentro: 8, fora: 3 },
         desligamentos: { total: 0, precoce: 0 },
         meta: {
             concluida: 0, total: 18,
@@ -602,15 +615,20 @@ const DADOS = {
         ],
         vagasDetalhes: {
             abertas: [
-                { nome: "SDR",                          recrutador: "Júlia",      abertura: "2026-04-02", slaAlvo: 30, cadeiras: 6 },
-                { nome: "Closer",                       recrutador: "Lara / Ana", abertura: "2026-04-01", slaAlvo: 30, cadeiras: 5 },
-                { nome: "Farmer",                       recrutador: "Lara / Ana", abertura: "2026-04-01", slaAlvo: 30, cadeiras: 3 },
-                { nome: "Sales Enablement Sênior",      recrutador: "A definir",  abertura: "2026-05-01", slaAlvo: 30, cadeiras: 1 },
-                { nome: "Coord./Supervisão de SDR",     recrutador: "A definir",  abertura: "2026-05-15", slaAlvo: 30, cadeiras: 1 },
-                { nome: "Supervisão de Farmer",         recrutador: "A definir",  abertura: "2026-05-01", slaAlvo: 30, cadeiras: 1 },
-                { nome: "Head/Gerente Sênior de Vendas (Franquia SP)", recrutador: "A definir", abertura: "2026-05-25", slaAlvo: 45, cadeiras: 1 }
+                { nome: "Closer | @invistanaallu",                     recrutador: "—",                       abertura: "2026-04-09", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Gerente de Contas (Farmer) | @invistanaallu", recrutador: "Lucas Machado Miranda",   abertura: "2026-04-09", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Assistente Jurídico | @allu.oficial",         recrutador: "Lara Mahe Souza",         abertura: "2026-04-23", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Product Manager - Produto e Growth",          recrutador: "Lara Mahe Souza",         abertura: "2026-04-24", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Analista de atração de talentos - Pleno",     recrutador: "Ana Soares",              abertura: "2026-04-30", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Supervisor de Farmers | @invistanaallu",      recrutador: "Lara Mahe Souza",         abertura: "2026-05-01", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Coordenador de SDR",                          recrutador: "Ana Soares",              abertura: "2026-05-01", slaAlvo: 30, cadeiras: 1 },
+                { nome: "Supervisor de vendas - SDR",                  recrutador: "Ana Soares",              abertura: "2026-05-04", slaAlvo: 30, cadeiras: 1 },
+                { nome: "SDR | @invistanaallu",                        recrutador: "Lara Mahe Souza",         abertura: "2026-05-04", slaAlvo: 30, cadeiras: 1 }
             ],
-            fechadas: [],
+            fechadas: [
+                { nome: "SDR | @invistanaallu",            recrutador: "Lucas Machado Miranda", fechamento: "2026-05-01", dias: 29 },
+                { nome: "Especialista em Revenue Intelligence", recrutador: "—",                fechamento: "2026-05-06", dias: 85 }
+            ],
             congeladas: [], canceladas: []
         },
         vagasHistorico: [
@@ -673,9 +691,8 @@ const DADOS = {
             { vaga: "Head/Gerente Sênior de Vendas (Franquia SP)", candidaturas: 0 }
         ],
         recrutadores: [
-            { nome: "Ana",   fechadas: 0, fechadasDentroSLA: 0 },
-            { nome: "Júlia", fechadas: 0, fechadasDentroSLA: 0 },
-            { nome: "Lara",  fechadas: 0, fechadasDentroSLA: 0 }
+            { nome: "Lucas Machado Miranda",    fechadas: 1, fechadasDentroSLA: 1 },
+            { nome: "Sem recrutador atribuído", fechadas: 1, fechadasDentroSLA: 0 }
         ],
         recusas: {
             abordados: 3066,
