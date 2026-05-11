@@ -58,6 +58,7 @@
     padding: 3px 8px; border-radius: 20px; background: var(--green-bg); color: var(--green);
   }
   .badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .badge-empty { background: var(--bg); color: var(--text-3); }
 
   /* Totals */
   .totals-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
@@ -73,7 +74,7 @@
   .grupo-count { font-size: 0.7rem; font-weight: 600; color: var(--text-3); }
 
   /* Vaga cards */
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .vaga-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
   .vaga-header { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
   .vaga-title { font-size: 0.95rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-top: 6px; line-height: 1.25; min-height: 2.4em; }
@@ -342,6 +343,11 @@ const AGENDA = {
           "roleplay": [],
           "cultura": []
         },
+        "Supervisão de Closer": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
+        },
         "Supervisão de Farmer": {
           "hrInterview": [],
           "roleplay": [],
@@ -469,9 +475,15 @@ function renderEtapa(stage, candidates, barWidth, weekKey, vaga) {
 }
 
 function renderVaga(nome, data, maxes, weekKey) {
+  const meta = VAGAS_META[nome] || {};
+  const cad = meta.cadeiras;
+  const badgeContent = cad
+    ? `${cad} ${cad === 1 ? 'vaga aberta' : 'vagas abertas'}`
+    : 'sem meta definida';
+  const badgeClass = cad ? 'badge' : 'badge badge-empty';
   return `<div class="vaga-card">
     <div class="vaga-header">
-      <div class="badge"><span class="dot"></span>${nome}</div>
+      <div class="${badgeClass}"><span class="dot"></span>${badgeContent}</div>
       <div class="vaga-title">${nome}</div>
     </div>
     <div class="etapas">
@@ -482,9 +494,18 @@ function renderVaga(nome, data, maxes, weekKey) {
   </div>`;
 }
 
+const VAGAS_META = {
+  "SDR":                  { cadeiras: 15 },
+  "Closer":               { cadeiras: 9  },
+  "Farmer":               { cadeiras: 5  },
+  "Supervisão de Closer": { cadeiras: 2  },
+  "Supervisão de Farmer": { cadeiras: 2  }
+};
+
 const VAGA_GROUPS = [
-  { titulo: 'Operação', vagas: ['SDR', 'Closer', 'Farmer', 'TA'] },
-  { titulo: 'Liderança & Especialistas', vagas: ['Sales Enablement Sênior', 'Coord./Supervisão de SDR', 'Supervisão de Farmer', 'Head/Gerente Sênior de Vendas'] }
+  { titulo: 'Vendas Operacional',     vagas: ['SDR', 'Closer', 'Farmer'] },
+  { titulo: 'Lideranças',             vagas: ['Coord./Supervisão de SDR', 'Supervisão de Closer', 'Supervisão de Farmer'] },
+  { titulo: 'Especialistas & Suporte', vagas: ['TA', 'Sales Enablement Sênior', 'Head/Gerente Sênior de Vendas'] }
 ];
 
 function render() {
