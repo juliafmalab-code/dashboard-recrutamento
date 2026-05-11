@@ -67,7 +67,7 @@
   .total-value { font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
 
   /* Vaga cards */
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .vaga-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
   .vaga-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
   .vaga-title { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-top: 6px; }
@@ -320,6 +320,11 @@ const AGENDA = {
             }
           ],
           "cultura": []
+        },
+        "TA": {
+          "hrInterview": [],
+          "roleplay": [],
+          "cultura": []
         }
       }
     }
@@ -456,7 +461,7 @@ function render() {
   const weekKey = ALL_WEEKS[weekIdx];
   const weekData = AGENDA.weeks[weekKey];
   const EMPTY = { hrInterview: [], roleplay: [], cultura: [] };
-  const vagas = weekData ? weekData.vagas : { SDR: EMPTY, Closer: EMPTY, Farmer: EMPTY };
+  const vagas = weekData ? weekData.vagas : { SDR: EMPTY, Closer: EMPTY, Farmer: EMPTY, TA: EMPTY };
   const names = Object.keys(vagas);
 
   const maxes = {
